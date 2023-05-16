@@ -1,9 +1,18 @@
 const express = require("express");
+const morgan = require("morgan");
 
 const app = express();
 
 // register view engine
 app.set('view engine', 'ejs');
+
+app.listen(3000);
+
+// middleware static files
+
+app.use(express.static('public'));
+
+app.use(morgan("tiny"));
 
 app.get('/', function (req, res) {
     const blogs = [
@@ -31,7 +40,3 @@ app.get('/about-us', (req, res) => {
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' })
 });
-
-
-  
-app.listen(3000);
